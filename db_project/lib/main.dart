@@ -28,43 +28,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void tryTest() async {
-    Map<String, dynamic> postData = {};
-    bool isPostSucceeded = await PostServices.postTest(postData);
+  void getData(location) async {
+    Map<String, dynamic> postData = {'location': location};
+    await PostServices.getRadiation(postData);
   }
 
-  void tryinsertTest() async {
-    Map<String, dynamic> postData = {};
-    bool isPostSucceeded = await PostServices.postinsertTest(postData);
+  void getSeaData(location) async {
+    Map<String, dynamic> postData = {'location': location};
+    await PostServices.getTriplehCesium(postData);
   }
 
-  // List<Marker> markers = [
-  //   Marker(
-  //     point: LatLng(38.072178, 129.649330),
-  //     width: 80,
-  //     height: 80,
-  //     child: IconButton(
-  //       icon: Icon(
-  //         Icons.location_on,
-  //         size: 30,
-  //         color: Colors.blueAccent,
-  //       ),
-  //       onPressed: () {
-  //         tryTest();
-  //       },
-  //     ),
-  //   ),
-  //   Marker(
-  //     point: LatLng(35.227672, 129.073069),
-  //     width: 80,
-  //     height: 80,
-  //     child: Icon(
-  //       Icons.location_on,
-  //       size: 30,
-  //       color: Colors.blueAccent,
-  //     ),
-  //   ),
-  // ];
+  // void tryinsertTest() async {
+  //   Map<String, dynamic> postData = {};
+  //   await PostServices.postinsertTest(postData);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -121,21 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //   maxZoom: 15,
               // ),
               markers: [
-                Marker(
-                  point: LatLng(38.072178, 129.649330),
-                  width: 80,
-                  height: 80,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.location_on,
-                      size: 30,
-                      color: Colors.blueAccent,
-                    ),
-                    onPressed: () {
-                      tryTest();
-                    },
-                  ),
-                ),
+                // 부산 마커
                 Marker(
                   point: LatLng(35.227672, 129.073069),
                   width: 80,
@@ -147,7 +110,327 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.blueAccent,
                     ),
                     onPressed: () {
-                      tryinsertTest();
+                      getData('부산');
+                    },
+                  ),
+                ),
+                // 포항 마커
+                Marker(
+                  point: LatLng(36.094278, 129.351573),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('포항');
+                    },
+                  ),
+                ),
+                // 평택 마커
+                Marker(
+                  point: LatLng(37.008465, 126.788861),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('평택');
+                    },
+                  ),
+                ),
+                // 통영 마커
+                Marker(
+                  point: LatLng(34.838904, 128.433859),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('통영');
+                    },
+                  ),
+                ),
+                // 제주 마커
+                Marker(
+                  point: LatLng(33.237763, 126.484734),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('제주');
+                    },
+                  ),
+                ),
+                // 전주 마커
+                Marker(
+                  point: LatLng(35.842721, 126.660557),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('전주');
+                    },
+                  ),
+                ),
+                // 장항 마커
+                Marker(
+                  point: LatLng(36.069545, 126.634638),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('장항');
+                    },
+                  ),
+                ),
+                // 인천 마커
+                Marker(
+                  point: LatLng(37.425516, 126.590826),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('인천');
+                    },
+                  ),
+                ),
+                // 완도 마커
+                Marker(
+                  point: LatLng(34.294321, 126.760395),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('완도');
+                    },
+                  ),
+                ),
+                // 여수 마커
+                Marker(
+                  point: LatLng(34.709787, 127.641631),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('여수');
+                    },
+                  ),
+                ),
+                // 목포 마커
+                Marker(
+                  point: LatLng(34.802495, 126.356356),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('목포');
+                    },
+                  ),
+                ),
+                // 강릉 마커
+                Marker(
+                  point: LatLng(37.757816, 128.960802),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      getData('강릉');
+                    },
+                  ),
+                ),
+                // 남해 동부
+                Marker(
+                  point: LatLng(34.649090, 129.096924),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      getSeaData('남해동부');
+                    },
+                  ),
+                ),
+                // 남해 서부
+                Marker(
+                  point: LatLng(34.067230, 126.301252),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      getSeaData('남해서부');
+                    },
+                  ),
+                ),
+                // 남해 중부
+                Marker(
+                  point: LatLng(34.253592, 127.888776),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      getSeaData('남해중부');
+                    },
+                  ),
+                ),
+                // 동해 북부
+                Marker(
+                  point: LatLng(38.699237, 129.031354),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      getSeaData('동해북부');
+                    },
+                  ),
+                ),
+                // 동해 중부
+                Marker(
+                  point: LatLng(37.318633, 129.893781),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      getSeaData('동해중부');
+                    },
+                  ),
+                ),
+                // 서해 남부
+                Marker(
+                  point: LatLng(34.906207, 125.228815),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      getSeaData('서해남부');
+                    },
+                  ),
+                ),
+                // 서해 북부
+                Marker(
+                  point: LatLng(37.504407, 125.143892),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      getSeaData('서해북부');
+                    },
+                  ),
+                ),
+                // 서해 중부
+                Marker(
+                  point: LatLng(36.039334, 125.254945),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      getSeaData('서해중부');
+                    },
+                  ),
+                ),
+                // 제주 해역
+                Marker(
+                  point: LatLng(33.092075, 126.639837),
+                  width: 80,
+                  height: 80,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.redAccent,
+                    ),
+                    onPressed: () {
+                      getSeaData('제주해역');
                     },
                   ),
                 ),
@@ -157,7 +440,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                     margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: Icon(
-                      Icons.mail,
+                      Icons.location_on,
                       // color: Colors.transparent,
                       color: Colors.blue,
                       size: 50,
