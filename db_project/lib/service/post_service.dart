@@ -6,7 +6,7 @@ class PostServices {
     'Content-Type': 'application/json; charset=UTF-8',
   };
 
-  static const baseUrl = "http://192.168.0.29:3000";
+  static const baseUrl = "http://10.0.2.2:3000";
   static const String postTestUrl = "/api/test";
   static const String postinsertTestUrl = "/api/insertApi";
   static const String getRadiationUrl = "/api/getRadiation";

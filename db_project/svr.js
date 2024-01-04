@@ -111,7 +111,7 @@ app.post('/api/getRadiation', async (req, res) => {
 
     let conn = null;
     try {
-        let QUERY_STR = `SELECT * from FishRadiation_new_buffer where fish_location = '${location}';`;
+        let QUERY_STR = `SELECT * from FishRadiation where fish_location = '${location}';`;
         conn = await new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) reject(err);
@@ -178,17 +178,19 @@ const getAPI = async (nowDate) => {
     // api 호출
     const data_array = await getFishRadioactivity(nowDate);
 
-    // 그 날 첫 호출 시에만 히스토리와 버퍼를 비운다 혹은 24시가 지났을 떄 
+    // Old 버퍼 비우고, New 버퍼의 값을 Old 버퍼로 옮긴다.
     const delete_query1 = 'delete from FishRadiation_old_Buffer';
-    const query1 = 'insert into FishRadiation_old_Buffer (fish_name, fish_location, rad_name, char_result, sample_num) select fish_name, fish_location, rad_name, char_result, sample_num from FishRadiation_new_Buffer';
+    const query1 = `insert into FishRadiation_old_Buffer (fish_name, fish_location, rad_name, char_result, sample_num) 
+    select fish_name, fish_location, rad_name, char_result, sample_num from FishRadiation_new_Buffer`;
 
-    // API로 받아온 데이터 넣어주기
+    // New 버퍼도 비우고, API를 호출해 갱신된 데이터를 New 버퍼에 넣어준다.
     const delete_query2 = 'delete from FishRadiation_new_Buffer';
     const query2 = 'insert into FishRadiation_new_Buffer (fish_name, fish_location, rad_name, char_result, sample_num) VALUES ?;';
 
-    // EXCEPT
-    // const query3 = 'insert into FishRaditon (fish_name, fish_location, rad_name, char_result, sample_num) select fish_name, fish_location, rad_name, char_result, sample_num from FishRadiation_new_Buffer except select fish_name, fish_location, rad_name, char_result, sample_num from FishRadiation_old_buffer';
-    const query3 = 'insert into FishRaditon (fish_name, fish_location, rad_name, char_result, sample_num) select fish_name, fish_location, rad_name, char_result, sample_num from FishRadiation_new_Buffer A where not exists (select * from FishRadiation_old_buffer B where A.fish_name = B.fish_name and A.rad_name = B.rad_name and A.sample_num = B.sample_num);';
+    // {New - Old} 연산을 통해 새롭게 추가된 데이터만 뽑아 FishRatidation 테이블에 Insert
+    const query3 = `insert into FishRaditon (fish_name, fish_location, rad_name, char_result, sample_num) 
+    select fish_name, fish_location, rad_name, char_result, sample_num from FishRadiation_new_Buffer A 
+    where not exists (select * from FishRadiation_old_buffer B where A.fish_name = B.fish_name and A.rad_name = B.rad_name and A.sample_num = B.sample_num);`;
     try {
         conn = await new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
@@ -355,14 +357,12 @@ function getFormattedDate() {
 setInterval(async () => {
     console.log('서버에서 API 호출.');
     nowDate = getFormattedDate();
-    // console.log(nowDate);
 
-    // await getAPI(nowDate);
-    // await getTripleHCesium();
-
+    await getAPI(nowDate);
+    await getTripleHCesium();
     await sendAlarm('whdgus120213');
 
-}, 2 * 1000);
+}, 60 * 60 * 1000);
 
 
 app.listen(port, () => {
